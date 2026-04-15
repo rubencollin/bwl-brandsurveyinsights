@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BWL Survey Results — December 2025</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap');
+
+:root {
+  --green-dark: #1a3a2a;
+  --green-mid: #2d5a3d;
+  --green-accent: #4a7c59;
+  --green-light: #7daa8a;
+  --green-pale: #dcf0e3;
+  --cream: #f5f2ec;
+  --cream-dark: #ede8df;
+  --orange: #c9622a;
+  --orange-pale: #fdecd8;
+  --text: #1a1a1a;
+  --text-mid: #4b5563;
+  --text-light: #9ca3af;
+  --border: #e5e7eb;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Inter',sans-serif; background:var(--cream); color:var(--text); line-height:1.6; }
+
+/* NAV */
+.nav { position:sticky; top:0; z-index:100; background:var(--green-dark); padding:0 40px; display:flex; align-items:center; height:48px; box-shadow:0 2px 8px rgba(0,0,0,.2); gap:0; }
+.nav a { color:rgba(255,255,255,.6); text-decoration:none; font-size:12px; font-weight:500; letter-spacing:.5px; padding:0 13px; height:48px; display:flex; align-items:center; border-bottom:2px solid transparent; transition:all .2s; }
+.nav a:hover { color:#fff; border-bottom-color:var(--green-light); }
+.nav .brand { font-size:11px; font-weight:700; color:#fff; letter-spacing:1.5px; text-transform:uppercase; margin-right:16px; padding:0; border:none; }
+
+/* COVER */
+.cover { background:linear-gradient(155deg,var(--green-dark) 0%,var(--green-mid) 55%,#3a6e4a 100%); color:#fff; padding:80px 60px 68px; overflow:hidden; position:relative; }
+.cover::before { content:''; position:absolute; top:-80px; right:-60px; width:420px; height:420px; border-radius:50%; background:rgba(255,255,255,.04); }
+.cover::after { content:''; position:absolute; bottom:-100px; left:25%; width:360px; height:360px; border-radius:50%; background:rgba(255,255,255,.03); }
+.cover-inner { max-width:1100px; margin:0 auto; position:relative; z-index:1; }
+.cover-eyebrow { font-size:11px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,.45); margin-bottom:16px; }
+.cover h1 { font-family:'Playfair Display',serif; font-size:54px; font-weight:700; line-height:1.08; margin-bottom:12px; }
+.cover h1 em { font-style:italic; font-weight:400; color:#a8d5b5; }
+.cover-sub { font-size:16px; color:rgba(255,255,255,.6); margin-bottom:44px; }
+.cover-stats { display:flex; gap:16px; flex-wrap:wrap; }
+.cover-stat { background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); border-radius:12px; padding:16px 22px; text-align:center; }
+.cover-stat .num { display:block; font-family:'Playfair Display',serif; font-size:38px; font-weight:700; color:#a8d5b5; line-height:1; }
+.cover-stat .lbl { font-size:11px; color:rgba(255,255,255,.5); margin-top:4px; }
+
+/* LAYOUT */
+.main { max-width:1100px; margin:0 auto; padding:64px 40px; }
+.section { margin-bottom:76px; }
+.section-header { display:flex; align-items:baseline; gap:14px; margin-bottom:32px; padding-bottom:14px; border-bottom:1px solid var(--border); }
+.section-num { font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--green-accent); }
+.section-title { font-family:'Playfair Display',serif; font-size:30px; font-weight:600; color:var(--green-dark); }
+
+/* INSIGHT BOX */
+.insight { background:var(--green-dark); color:#fff; border-radius:14px; padding:20px 26px; margin-bottom:28px; font-size:14px; line-height:1.7; }
+.insight strong { color:#a8d5b5; }
+
+/* RESPONDENTS */
+.resp-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:14px; }
+.resp-card { background:#fff; border:1px solid var(--border); border-radius:12px; padding:18px; text-align:center; }
+.resp-card.hero { background:var(--green-dark); border-color:var(--green-dark); }
+.resp-card .num { display:block; font-family:'Playfair Display',serif; font-size:34px; font-weight:700; color:var(--green-accent); line-height:1; }
+.resp-card.hero .num { color:#a8d5b5; }
+.resp-card .pct { font-size:12px; color:var(--text-light); }
+.resp-card.hero .pct { color:rgba(255,255,255,.45); }
+.resp-card .lbl { font-size:12px; font-weight:600; color:var(--text); margin-top:4px; }
+.resp-card.hero .lbl { color:#fff; }
+.resp-row2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+
+/* WORD CLOUD */
+.cloud-wrap { background:#fff; border:1px solid var(--border); border-radius:16px; padding:40px 40px 32px; text-align:center; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:5px 14px; line-height:2; }
+.word { display:inline-block; font-weight:600; color:var(--green-dark); cursor:default; transition:opacity .2s; }
+.word:hover { opacity:.65; }
+.word.w10 { font-size:52px; }
+.word.w8  { font-size:38px; color:var(--green-mid); }
+.word.w6  { font-size:28px; color:var(--green-accent); }
+.word.w5  { font-size:24px; color:#3d6e4e; }
+.word.w4  { font-size:20px; color:var(--green-light); }
+.word.w3  { font-size:16px; color:#6b9e7a; }
+.word.w2  { font-size:13.5px; color:#8bba99; font-weight:500; }
+.word.w1  { font-size:12px; color:var(--text-light); font-weight:400; }
+.word.neg { color:#b91c1c !important; font-style:italic; }
+.cloud-note { margin-top:14px; font-size:11.5px; color:var(--text-light); text-align:center; }
+
+/* CSS BAR CHARTS */
+.chart-wrap { background:#fff; border:1px solid var(--border); border-radius:16px; padding:26px 28px; }
+.chart-label { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--text-mid); margin-bottom:18px; }
+.bar-list { display:flex; flex-direction:column; gap:8px; }
+.bar-row { display:flex; align-items:center; gap:10px; }
+.bar-name { flex:0 0 195px; font-size:12px; font-weight:500; color:var(--text); text-align:right; line-height:1.3; }
+.bar-track { flex:1; background:var(--cream-dark); border-radius:5px; height:22px; overflow:hidden; }
+.bar-fill { height:100%; border-radius:5px; display:flex; align-items:center; justify-content:flex-end; padding-right:8px; transition:width .4s; }
+.bar-fill span { font-size:11px; font-weight:700; color:#fff; white-space:nowrap; }
+.bar-fill.g1 { background:#1a3a2a; }
+.bar-fill.g2 { background:#2d5a3d; }
+.bar-fill.g3 { background:#4a7c59; }
+.bar-fill.g4 { background:#5e9970; }
+.bar-fill.g5 { background:#7daa8a; }
+.bar-fill.g6 { background:#a3c5ac; }
+.bar-fill.g7 { background:#c5deca; }
+.bar-fill.g7 span, .bar-fill.g8 span { color:var(--text-mid) !important; }
+.bar-fill.g8 { background:#e0eee3; }
+
+/* BRAND DRIVES two-col */
+.brand-cols { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:20px; }
+.brand-bar-fill-now { background:var(--green-accent); }
+.brand-bar-fill-ideal { background:var(--orange); }
+.brand-bar-fill-now span, .brand-bar-fill-ideal span { color:#fff; }
+.brand-bar-small { height:18px !important; border-radius:4px !important; }
+.brand-bar-small span { font-size:10px !important; }
+.bar-name-sm { flex:0 0 175px !important; font-size:11.5px !important; }
+
+/* DELTA */
+.delta-list { display:flex; flex-direction:column; gap:7px; }
+.delta-row { display:flex; align-items:center; gap:12px; padding:9px 14px; border-radius:9px; background:#fff; border:1px solid var(--border); }
+.delta-row.pos-d { border-left:4px solid var(--green-accent); }
+.delta-row.neg-d { border-left:4px solid #b91c1c; }
+.delta-row.neu-d { border-left:4px solid var(--border); }
+.delta-lbl { flex:0 0 200px; font-size:12.5px; font-weight:500; }
+.delta-tracks { flex:1; display:flex; flex-direction:column; gap:3px; }
+.dt { height:8px; border-radius:3px; }
+.dt-now { background:#bdd6c5; }
+.dt-ideal { background:var(--green-accent); }
+.delta-pct { flex:0 0 60px; text-align:right; font-size:12px; font-weight:700; }
+.delta-pct.p { color:var(--green-accent); }
+.delta-pct.n { color:#b91c1c; }
+.delta-pct.z { color:var(--text-light); }
+.delta-legend { display:flex; gap:18px; margin-bottom:14px; }
+.dl-item { display:flex; align-items:center; gap:6px; font-size:11.5px; color:var(--text-mid); }
+.dl-dot { width:12px; height:8px; border-radius:2px; }
+
+/* TAKEAWAY CARDS */
+.takeaway-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:28px; }
+.tc { background:#fff; border:1px solid var(--border); border-radius:14px; padding:20px; }
+.tc .icon { font-size:22px; margin-bottom:10px; }
+.tc .head { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; color:var(--green-dark); margin-bottom:6px; }
+.tc .body { font-size:13px; color:var(--text-mid); line-height:1.6; }
+
+/* ARCHETYPE */
+.arch-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+.arch-card { background:#fff; border:2px solid var(--border); border-radius:14px; padding:20px; }
+.arch-card.winner { border-color:var(--green-accent); background:var(--green-pale); }
+.arch-pct { display:block; font-family:'Playfair Display',serif; font-size:44px; font-weight:700; color:var(--text-light); line-height:1; }
+.arch-card.winner .arch-pct { color:var(--green-dark); }
+.arch-name { font-size:15px; font-weight:600; color:var(--text); margin:6px 0 4px; }
+.arch-desc { font-size:12px; color:var(--text-mid); font-style:italic; }
+.arch-bar-track { height:6px; background:var(--cream-dark); border-radius:3px; margin-top:12px; overflow:hidden; }
+.arch-bar-fill { height:100%; border-radius:3px; background:var(--text-light); }
+.arch-card.winner .arch-bar-fill { background:var(--green-accent); }
+
+/* VOICES */
+.voice-narrative { background:var(--green-pale); border:1px solid #a8d5b5; border-radius:14px; padding:26px 30px; margin-bottom:30px; }
+.voice-narrative p { font-size:15px; line-height:1.75; color:var(--green-dark); }
+.voice-narrative p + p { margin-top:12px; }
+.voice-narrative strong { font-weight:700; }
+
+.quotes-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-bottom:36px; }
+.q-card { background:#fff; border:1px solid var(--border); border-radius:12px; padding:20px; }
+.q-text { font-size:13.5px; font-style:italic; color:var(--text); line-height:1.65; margin-bottom:10px; padding-left:18px; position:relative; }
+.q-text::before { content:'"'; font-family:'Playfair Display',serif; font-size:52px; color:var(--green-pale); position:absolute; left:-4px; top:-14px; line-height:1; }
+.q-name { font-size:11px; font-weight:600; color:var(--text-light); text-transform:uppercase; letter-spacing:.8px; }
+
+/* T-SHIRT SECTION */
+.tshirt-intro { font-size:13px; color:var(--text-mid); margin-bottom:22px; line-height:1.6; }
+.tshirt-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-bottom:28px; }
+.tshirt-card { background:#fff; border:1px solid var(--border); border-radius:16px; padding:24px; text-align:center; }
+.tshirt-card .pick-label { font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--green-accent); margin-bottom:12px; }
+.tshirt-card svg { width:100%; max-width:200px; height:auto; display:block; margin:0 auto 14px; }
+.tshirt-card .tshirt-submitter { font-size:11px; color:var(--text-light); margin-top:8px; }
+.tshirt-card .tshirt-reason { font-size:12px; color:var(--text-mid); line-height:1.5; margin-top:6px; border-top:1px solid var(--border); padding-top:10px; }
+
+.other-msgs { display:flex; flex-wrap:wrap; gap:8px; }
+.msg-pill { background:var(--green-dark); color:#fff; border-radius:20px; padding:7px 16px; font-size:12.5px; font-style:italic; }
+
+/* 23PLUSONE REF */
+.method-box { display:grid; grid-template-columns:200px 1fr; gap:28px; background:#fff; border:1px solid var(--border); border-radius:16px; padding:28px; align-items:center; margin-bottom:28px; }
+.method-cards-visual { display:flex; justify-content:center; align-items:center; }
+.method-text h4 { font-family:'Playfair Display',serif; font-size:18px; color:var(--green-dark); margin-bottom:8px; }
+.method-text p { font-size:13px; color:var(--text-mid); line-height:1.65; }
+.method-text p + p { margin-top:8px; }
+
+/* FOOTER */
+footer { background:var(--green-dark); color:rgba(255,255,255,.4); text-align:center; padding:24px; font-size:12px; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a class="brand">BWL Survey '25</a>
+  <a href="#respondents">Who Responded</a>
+  <a href="#associations">Word Cloud</a>
+  <a href="#values">Personal Values</a>
+  <a href="#brand">Brand Drives</a>
+  <a href="#delta">The Delta</a>
+  <a href="#archetype">Archetype</a>
+  <a href="#voices">Voices</a>
+</nav>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-inner">
+    <div class="cover-eyebrow">Bioregional Weaving Labs Collective · Survey Results</div>
+    <h1>What <em>moves</em> us —<br>and where we want to go</h1>
+    <p class="cover-sub">December 2025 · 23plusone Drive Research · Presented April 2026</p>
+    <div class="cover-stats">
+      <div class="cover-stat"><span class="num">33</span><div class="lbl">Respondents</div></div>
+      <div class="cover-stat"><span class="num">94%</span><div class="lbl">Positive first associations</div></div>
+      <div class="cover-stat"><span class="num">97%</span><div class="lbl">Rate Connection & Idealism as deeply important</div></div>
+      <div class="cover-stat"><span class="num">58%</span><div class="lbl">See BWL as Ally / Companion</div></div>
+      <div class="cover-stat"><span class="num">4.1 / 5</span><div class="lbl">Enjoyed completing this survey</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- 1. WHO RESPONDED -->
+<div class="section" id="respondents">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Who Responded</h2>
+  </div>
+  <div class="insight">
+    <strong>33 people</strong> from across the BWL ecosystem completed this survey. The practitioner voice is well represented — weavers and the Pan-European Support Team together make up <strong>63%</strong> of respondents. Notably absent: funding partners and systems innovators recorded zero responses. These results reflect what the <strong>core community believes and feels</strong> — not the funder or entrepreneur perspective.
+  </div>
+  <div class="resp-grid">
+    <div class="resp-card hero"><span class="num">33</span><div class="pct">total</div><div class="lbl">All Respondents</div></div>
+    <div class="resp-card"><span class="num">11</span><div class="pct">33%</div><div class="lbl">Pan-European Support Team</div></div>
+    <div class="resp-card"><span class="num">10</span><div class="pct">30%</div><div class="lbl">Weavers</div></div>
+    <div class="resp-card"><span class="num">5</span><div class="pct">15%</div><div class="lbl">Online Followers</div></div>
+  </div>
+  <div class="resp-row2">
+    <div class="resp-card"><span class="num">2</span><div class="pct">6%</div><div class="lbl">Partners</div></div>
+    <div class="resp-card"><span class="num">5</span><div class="pct">15%</div><div class="lbl">Other / Associated</div></div>
+  </div>
+  <p style="font-size:12px;color:var(--text-light);margin-top:14px;">⚠ Funding partners (0) and systems innovators (0) are not represented. Treat findings as the practitioner and network voice of BWL.</p>
+</div>
+
+<!-- 2. FREE ASSOCIATIONS -->
+<div class="section" id="associations">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">What Comes to Mind</h2>
+  </div>
+  <div class="insight">
+    Each respondent gave three spontaneous associations with <em>Bioregional Weaving Labs</em>. Similar words were merged before visualisation. <strong>Regeneration</strong> and <strong>Community</strong> dominate overwhelmingly — the twin pillars of how BWL lives in people's minds. <strong>Network</strong>, <strong>Collaboration</strong>, and <strong>Transformation</strong> form the second tier. Sentiment is almost entirely positive: <strong>94%</strong> of all associations were described as positive.
+  </div>
+  <div class="cloud-wrap">
+    <span class="word w10">Regeneration</span>
+    <span class="word w8">Community</span>
+    <span class="word w6">Network</span>
+    <span class="word w5">Collaboration</span>
+    <span class="word w5">Transformation</span>
+    <span class="word w5">Bioregions</span>
+    <span class="word w4">Connection</span>
+    <span class="word w4">Place-based</span>
+    <span class="word w3">Hope</span>
+    <span class="word w3">Nature</span>
+    <span class="word w3">Landscape</span>
+    <span class="word w3">Caring</span>
+    <span class="word w3">Togetherness</span>
+    <span class="word w2">Relationships</span>
+    <span class="word w2">Resilience</span>
+    <span class="word w2">Learning</span>
+    <span class="word w2">Support</span>
+    <span class="word w2">Ecosystem</span>
+    <span class="word w2">Purpose</span>
+    <span class="word w2">Infrastructure</span>
+    <span class="word w1">Grounded</span>
+    <span class="word w1">Emergence</span>
+    <span class="word w1">Soil</span>
+    <span class="word w1">Momentum</span>
+    <span class="word w1">Play</span>
+    <span class="word w1">Authenticity</span>
+    <span class="word w1 neg">Incomprehensible</span>
+    <span class="word w1 neg">Very complex</span>
+    <span class="word w1 neg">A lot of work</span>
+  </div>
+  <p class="cloud-note">Size reflects frequency · Italic red = neutral/negative associations (6%) · Words normalised from raw responses</p>
+</div>
+
+<!-- 3. PERSONAL VALUES -->
+<div class="section" id="values">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Personal Values — What Drives Us as People</h2>
+  </div>
+
+  <!-- 23plusone method box -->
+  <div class="method-box">
+    <div class="method-cards-visual">
+      <!-- SVG illustration of fanned cards -->
+      <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" style="max-width:180px">
+        <defs>
+          <filter id="s1"><feDropShadow dx="1" dy="2" stdDeviation="2" flood-opacity=".18"/></filter>
+        </defs>
+        <!-- Card fan, back to front -->
+        <g filter="url(#s1)">
+          <rect x="20" y="30" width="90" height="120" rx="8" fill="#c5deca" transform="rotate(-28 65 90)"/>
+          <rect x="28" y="28" width="90" height="120" rx="8" fill="#7daa8a" transform="rotate(-18 73 88)"/>
+          <rect x="36" y="26" width="90" height="120" rx="8" fill="#4a7c59" transform="rotate(-8 81 86)"/>
+          <rect x="44" y="24" width="90" height="120" rx="8" fill="#2d5a3d" transform="rotate(2 89 84)"/>
+          <!-- Front card with text -->
+          <rect x="52" y="22" width="90" height="120" rx="8" fill="#1a3a2a" transform="rotate(12 97 82)"/>
+          <text transform="rotate(12 97 82)" x="97" y="75" font-family="Georgia,serif" font-size="9" fill="#a8d5b5" text-anchor="middle" font-weight="bold">Beauty</text>
+          <text transform="rotate(12 97 82)" x="97" y="87" font-family="Georgia,serif" font-size="9" fill="#a8d5b5" text-anchor="middle">Esthetics</text>
+        </g>
+      </svg>
+    </div>
+    <div class="method-text">
+      <h4>About the 23plusone method</h4>
+      <p>The 23plusone framework is based on decades of motivational psychology research. It maps 24 fundamental human drives — intrinsic motivations that explain why we make choices, what we find meaningful, and what brands we feel connected to.</p>
+      <p>In this survey, respondents scored each drive on importance in their own life (1–5). The bars below show the percentage who rated a drive as <strong>important or very important (4 or 5)</strong>. A drive scoring above 60% is a strong cultural signal — part of what holds this community together.</p>
+    </div>
+  </div>
+
+  <div class="insight">
+    <strong>Connected | Together</strong> and <strong>Idealism | Better World</strong> score at an extraordinary <strong>97%</strong> — near-universal agreement. This community is held together by a profound belief that connection and purpose matter above all. At the bottom: status, competition, and material acquisition. This is not an ambitious or hierarchical group. It is a <strong>purposeful, warm, and freely choosing</strong> one.
+  </div>
+  <div class="chart-wrap">
+    <div class="chart-label">How important is each drive to you personally? (% rating 4 or 5 out of 5)</div>
+    <div class="bar-list">
+      <div class="bar-row"><span class="bar-name">Connected | Together</span><div class="bar-track"><div class="bar-fill g1" style="width:97%"><span>97%</span></div></div></div>
+      <div class="bar-row"><span class="bar-name">Idealism | Better World</span><div class="bar-track"><div class="bar-fill g1" style="width:97%"><span>97%</span></div></div></div>
+      <div class="bar-row"><span class="bar-name">Warm | Caring</span><div class="bar-track"><div class="bar-fill g2" style="width:85%"><span>85%</span></div></div></div>
+      <div class="bar-row"><span class="bar-name">Unbound | Independent</span><div class="bar-track"><div class="bar-fill g2" style="width:82%"><span>82%</span></div></div></div>
+      <div class="bar-row"><span class="bar-name">Relaxed | Carefree</span><div class="bar-track"><div class="bar-fill g3" style="width:76%"><span>76%</span></div></div></div>
+      <div class="bar-row"><span class="bar-name">Discover | Curious</span><div class="bar-track"><div class="bar-fill g3" style="width:73%"><span>73%</span></div></div></div>
+      <div class="bar-row"><span class="bar-name">Health | Nutrition</span><div class="bar-track"><div class="bar-fill g3" style="width:67%"><span>67%</span></div></div></div>
+      <div class="bar-row"><span class="bar-name">Capable | Talent</span><div class="bar-track"><div class="bar-fill g4" style="width:61%"><span>61%</span></div></div></div>
+      <div class="bar-row"><span class="bar-name">Creative | Fantasy</span><div class="bar-track"><div class="bar-fill g4" style="width:61%"><span>61%</span></div></div></div>
+      <div class="bar-row"><span class="bar-name">Individual | Unique</span><div class="bar-track"><div class="bar-fill g4" style="width:58%"><span>58%</span></div></div></div>
+      <div class="bar-row"><span class="bar-name">Achievement | Innovation</span><div class="bar-track"><div class="bar-fill g4" style="width:58%"><span>58%</span></div></div></div>
+      <div class="bar-row"><span class="bar-name">Play | Fun</span><div class="bar-track"><div class="bar-fill g5" style="width:55%"><span>55%</span></div></div></div>
+      <div class="bar-row"><span class="bar-name">Fit | Sportive</span><div class="bar-track"><div class="bar-fill g5" style="width:55%"><span>55%</span></div></div></div>
+      <div class="bar-row"><span class="bar-name">Beauty | Esthetics</span><div class="bar-track"><div class="bar-fill g6" style="width:39%"><span>39%</span></div></div></div>
+      <div class="bar-row"><span class="bar-name">Appreciation | Recognition</span><div class="bar-track"><div class="bar-fill g6" style="width:36%"><span>36%</span></div></div></div>
+      <div class="bar-row"><span class="bar-name">Loyal | Moral</span><div class="bar-track"><div class="bar-fill g6" style="width:30%"><span>30%</span></div></div></div>
+      <div class="bar-row"><span class="bar-name">Safe | Secure</span><div class="bar-track"><div class="bar-fill g7" style="width:27%"><span style="color:var(--text-mid)">27%</span></div></div></div>
+      <div class="bar-row"><span class="bar-name">Order | Structure</span><div class="bar-track"><div class="bar-fill g7" style="width:24%"><span style="color:var(--text-mid)">24%</span></div></div></div>
+      <div class="bar-row"><span class="bar-name">Challenge | Winning</span><div class="bar-track"><div class="bar-fill g8" style="width:15%"><span style="color:var(--text-mid)">15%</span></div></div></div>
+      <div class="bar-row"><span class="bar-name">Pride | Self Assured</span><div class="bar-track"><div class="bar-fill g8" style="width:12%"><span style="color:var(--text-mid)">12%</span></div></div></div>
+      <div class="bar-row"><span class="bar-name">Influence | Leadership</span><div class="bar-track"><div class="bar-fill g8" style="width:6%"><span style="color:var(--text-mid)">6%</span></div></div></div>
+      <div class="bar-row"><span class="bar-name">Posess | Collect</span><div class="bar-track"><div class="bar-fill g8" style="width:3%"><span style="color:var(--text-mid)">3%</span></div></div></div>
+      <div class="bar-row"><span class="bar-name">Standing | Prestige</span><div class="bar-track"><div class="bar-fill g8" style="width:0.5%"></div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 4. BRAND DRIVES -->
+<div class="section" id="brand">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Brand Drives — How BWL Feels Now vs. Ideal</h2>
+  </div>
+  <div class="insight">
+    We asked respondents to select which drives best describe <em>BWL as it is today</em>, and which should define <em>BWL's future story</em>. The current perception is anchored by <strong>Idealism | Better World</strong> (97%), <strong>Connected | Together</strong> (73%), and <strong>Discover | Curious</strong> (61%). For the future, these remain strong — but respondents are clearly asking BWL to grow new qualities: <strong>more structure, more visible capability, more beauty</strong>.
+  </div>
+  <div class="brand-cols">
+    <div class="chart-wrap">
+      <div class="chart-label" style="color:var(--green-accent)">🌿 How BWL Feels Now — Top 10</div>
+      <div class="bar-list">
+        <div class="bar-row"><span class="bar-name bar-name-sm">Idealism | Better World</span><div class="bar-track"><div class="bar-fill brand-bar-fill-now brand-bar-small" style="width:97%"><span>97%</span></div></div></div>
+        <div class="bar-row"><span class="bar-name bar-name-sm">Connected | Together</span><div class="bar-track"><div class="bar-fill brand-bar-fill-now brand-bar-small" style="width:73%"><span>73%</span></div></div></div>
+        <div class="bar-row"><span class="bar-name bar-name-sm">Health | Nutrition</span><div class="bar-track"><div class="bar-fill brand-bar-fill-now brand-bar-small" style="width:61%"><span>61%</span></div></div></div>
+        <div class="bar-row"><span class="bar-name bar-name-sm">Discover | Curious</span><div class="bar-track"><div class="bar-fill brand-bar-fill-now brand-bar-small" style="width:61%"><span>61%</span></div></div></div>
+        <div class="bar-row"><span class="bar-name bar-name-sm">Unbound | Independent</span><div class="bar-track"><div class="bar-fill brand-bar-fill-now brand-bar-small" style="width:49%"><span>49%</span></div></div></div>
+        <div class="bar-row"><span class="bar-name bar-name-sm">Warm | Caring</span><div class="bar-track"><div class="bar-fill brand-bar-fill-now brand-bar-small" style="width:39%"><span>39%</span></div></div></div>
+        <div class="bar-row"><span class="bar-name bar-name-sm">Individual | Unique</span><div class="bar-track"><div class="bar-fill brand-bar-fill-now brand-bar-small" style="width:30%"><span>30%</span></div></div></div>
+        <div class="bar-row"><span class="bar-name bar-name-sm">Capable | Talent</span><div class="bar-track"><div class="bar-fill brand-bar-fill-now brand-bar-small" style="width:21%"><span>21%</span></div></div></div>
+        <div class="bar-row"><span class="bar-name bar-name-sm">Achievement | Innovation</span><div class="bar-track"><div class="bar-fill brand-bar-fill-now brand-bar-small" style="width:18%"><span>18%</span></div></div></div>
+        <div class="bar-row"><span class="bar-name bar-name-sm">Safe | Secure</span><div class="bar-track"><div class="bar-fill brand-bar-fill-now brand-bar-small" style="width:18%"><span>18%</span></div></div></div>
+      </div>
+    </div>
+    <div class="chart-wrap">
+      <div class="chart-label" style="color:var(--orange)">✦ How BWL Should Feel — Top 10</div>
+      <div class="bar-list">
+        <div class="bar-row"><span class="bar-name bar-name-sm">Idealism | Better World</span><div class="bar-track"><div class="bar-fill brand-bar-fill-ideal brand-bar-small" style="width:82%"><span>82%</span></div></div></div>
+        <div class="bar-row"><span class="bar-name bar-name-sm">Connected | Together</span><div class="bar-track"><div class="bar-fill brand-bar-fill-ideal brand-bar-small" style="width:64%"><span>64%</span></div></div></div>
+        <div class="bar-row"><span class="bar-name bar-name-sm">Health | Nutrition</span><div class="bar-track"><div class="bar-fill brand-bar-fill-ideal brand-bar-small" style="width:61%"><span>61%</span></div></div></div>
+        <div class="bar-row"><span class="bar-name bar-name-sm">Discover | Curious</span><div class="bar-track"><div class="bar-fill brand-bar-fill-ideal brand-bar-small" style="width:55%"><span>55%</span></div></div></div>
+        <div class="bar-row"><span class="bar-name bar-name-sm">Warm | Caring</span><div class="bar-track"><div class="bar-fill brand-bar-fill-ideal brand-bar-small" style="width:42%"><span>42%</span></div></div></div>
+        <div class="bar-row"><span class="bar-name bar-name-sm">Capable | Talent</span><div class="bar-track"><div class="bar-fill brand-bar-fill-ideal brand-bar-small" style="width:36%"><span>36%</span></div></div></div>
+        <div class="bar-row"><span class="bar-name bar-name-sm">Order | Structure</span><div class="bar-track"><div class="bar-fill brand-bar-fill-ideal brand-bar-small" style="width:30%"><span>30%</span></div></div></div>
+        <div class="bar-row"><span class="bar-name bar-name-sm">Unbound | Independent</span><div class="bar-track"><div class="bar-fill brand-bar-fill-ideal brand-bar-small" style="width:30%"><span>30%</span></div></div></div>
+        <div class="bar-row"><span class="bar-name bar-name-sm">Individual | Unique</span><div class="bar-track"><div class="bar-fill brand-bar-fill-ideal brand-bar-small" style="width:27%"><span>27%</span></div></div></div>
+        <div class="bar-row"><span class="bar-name bar-name-sm">Play | Fun</span><div class="bar-track"><div class="bar-fill brand-bar-fill-ideal brand-bar-small" style="width:24%"><span>24%</span></div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5. DELTA -->
+<div class="section" id="delta">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2 class="section-title">The Delta — What to Amplify</h2>
+  </div>
+  <div class="insight">
+    The gap between <em>now</em> and <em>ideal</em> is where the most actionable intelligence lives. The most striking signal: <strong>Order | Structure</strong> jumps +24 points — the community wants BWL to become more organised and reliable. <strong>Capable | Talent</strong> (+15) and <strong>Beauty | Esthetics</strong> (+12) follow. Meanwhile, <strong>Unbound | Independent</strong> drops sharply (-18 points) — the free-spirited quality that defines BWL today is valued, but the community wants it balanced with grounded capability.
+  </div>
+  <div class="chart-wrap">
+    <div class="delta-legend">
+      <div class="dl-item"><div class="dl-dot" style="background:#bdd6c5"></div> Current %</div>
+      <div class="dl-item"><div class="dl-dot" style="background:var(--green-accent)"></div> Ideal %</div>
+    </div>
+    <div class="chart-label">Ideal minus current (percentage points)</div>
+    <div class="delta-list">
+      <div class="delta-row pos-d"><span class="delta-lbl">Order | Structure</span><div class="delta-tracks"><div class="dt dt-now" style="width:6.1%"></div><div class="dt dt-ideal" style="width:30.3%"></div></div><span class="delta-pct p">+24 pp</span></div>
+      <div class="delta-row pos-d"><span class="delta-lbl">Capable | Talent</span><div class="delta-tracks"><div class="dt dt-now" style="width:21.2%"></div><div class="dt dt-ideal" style="width:36.4%"></div></div><span class="delta-pct p">+15 pp</span></div>
+      <div class="delta-row pos-d"><span class="delta-lbl">Beauty | Esthetics</span><div class="delta-tracks"><div class="dt dt-now" style="width:12.1%"></div><div class="dt dt-ideal" style="width:24.2%"></div></div><span class="delta-pct p">+12 pp</span></div>
+      <div class="delta-row pos-d"><span class="delta-lbl">Play | Fun</span><div class="delta-tracks"><div class="dt dt-now" style="width:15.2%"></div><div class="dt dt-ideal" style="width:24.2%"></div></div><span class="delta-pct p">+9 pp</span></div>
+      <div class="delta-row pos-d"><span class="delta-lbl">Creative | Fantasy</span><div class="delta-tracks"><div class="dt dt-now" style="width:12.1%"></div><div class="dt dt-ideal" style="width:21.2%"></div></div><span class="delta-pct p">+9 pp</span></div>
+      <div class="delta-row pos-d"><span class="delta-lbl">Achievement | Innovation</span><div class="delta-tracks"><div class="dt dt-now" style="width:18.2%"></div><div class="dt dt-ideal" style="width:24.2%"></div></div><span class="delta-pct p">+6 pp</span></div>
+      <div class="delta-row pos-d"><span class="delta-lbl">Warm | Caring</span><div class="delta-tracks"><div class="dt dt-now" style="width:39.4%"></div><div class="dt dt-ideal" style="width:42.4%"></div></div><span class="delta-pct p">+3 pp</span></div>
+      <div class="delta-row neu-d"><span class="delta-lbl">Health | Nutrition</span><div class="delta-tracks"><div class="dt dt-now" style="width:60.6%"></div><div class="dt dt-ideal" style="width:60.6%"></div></div><span class="delta-pct z">0 pp</span></div>
+      <div class="delta-row neg-d"><span class="delta-lbl">Discover | Curious</span><div class="delta-tracks"><div class="dt dt-now" style="width:60.6%"></div><div class="dt dt-ideal" style="width:54.5%"></div></div><span class="delta-pct n">−6 pp</span></div>
+      <div class="delta-row neg-d"><span class="delta-lbl">Connected | Together</span><div class="delta-tracks"><div class="dt dt-now" style="width:72.7%"></div><div class="dt dt-ideal" style="width:63.6%"></div></div><span class="delta-pct n">−9 pp</span></div>
+      <div class="delta-row neg-d"><span class="delta-lbl">Idealism | Better World</span><div class="delta-tracks"><div class="dt dt-now" style="width:97%"></div><div class="dt dt-ideal" style="width:81.8%"></div></div><span class="delta-pct n">−15 pp</span></div>
+      <div class="delta-row neg-d"><span class="delta-lbl">Unbound | Independent</span><div class="delta-tracks"><div class="dt dt-now" style="width:48.5%"></div><div class="dt dt-ideal" style="width:30.3%"></div></div><span class="delta-pct n">−18 pp</span></div>
+    </div>
+  </div>
+  <div class="takeaway-grid">
+    <div class="tc"><div class="icon">📐</div><div class="head">Grow: Structure &amp; Craft</div><div class="body">The community wants BWL to show up with more organisation, more visible competence, and more beauty. This is a maturation signal — the ambition is there; now the form needs to match it.</div></div>
+    <div class="tc"><div class="icon">⚖️</div><div class="head">Balance: Idealism → Grounded Action</div><div class="body">Idealism drops 15 points in the ideal picture. Not a rejection of purpose — but a desire to anchor big dreams in tangible, reliable delivery. Less wandering, more purposeful movement.</div></div>
+    <div class="tc"><div class="icon">🌿</div><div class="head">Protect: Connection &amp; Curiosity</div><div class="body">Connection and discovery remain strong in both current and ideal. These are BWL's irreducible core — they must not be eroded in the name of structure. Bring rigour to warmth, not replace it.</div></div>
+  </div>
+</div>
+
+<!-- 6. ARCHETYPE -->
+<div class="section" id="archetype">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <h2 class="section-title">BWL as a Character</h2>
+  </div>
+  <div class="insight">
+    Asked which story archetype fits BWL best, <strong>58%</strong> chose <em>Ally / Companion</em> — standing together, providing support. BWL is not experienced as a leader, guru, or rebel. It is a <strong>fellow traveller</strong>: present, committed, in the struggle alongside others. This has a direct implication for communications: authoritative, top-down messaging will feel off. Solidarity, shared language, and "we're in this together" will land.
+  </div>
+  <div class="arch-grid">
+    <div class="arch-card winner">
+      <span class="arch-pct">58%</span>
+      <div class="arch-name">🤝 Ally / Companion</div>
+      <div class="arch-desc">Standing together, providing support</div>
+      <div class="arch-bar-track"><div class="arch-bar-fill" style="width:58%"></div></div>
+    </div>
+    <div class="arch-card">
+      <span class="arch-pct">24%</span>
+      <div class="arch-name">🧭 Mentor</div>
+      <div class="arch-desc">Guiding, connecting, and advising</div>
+      <div class="arch-bar-track"><div class="arch-bar-fill" style="width:24%"></div></div>
+    </div>
+    <div class="arch-card">
+      <span class="arch-pct">9%</span>
+      <div class="arch-name">⚡ Hero</div>
+      <div class="arch-desc">Taking bold action and inspiring others</div>
+      <div class="arch-bar-track"><div class="arch-bar-fill" style="width:9%"></div></div>
+    </div>
+    <div class="arch-card">
+      <span class="arch-pct">9%</span>
+      <div class="arch-name">🔥 Challenger</div>
+      <div class="arch-desc">Provoking change by questioning the status quo</div>
+      <div class="arch-bar-track"><div class="arch-bar-fill" style="width:9%"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 7. VOICES -->
+<div class="section" id="voices">
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <h2 class="section-title">Voices from the Collective</h2>
+  </div>
+
+  <div class="voice-narrative">
+    <p>Numbers tell you what people think. Words tell you what they feel. When we asked this community to speak freely — about what BWL creates, what they imagine for 2050, and what they'd put on a t-shirt — something remarkable emerged: <strong>a shared language that no one coordinated.</strong></p>
+    <p>Words like <em>mycelium</em>, <em>weaving</em>, <em>place</em>, and <em>soil</em> appear again and again, unprompted, across 33 different people in different countries and roles. The metaphors converge. The longings rhyme. People describe not just an organisation they believe in, but a <strong>way of being in the world</strong> they want more of.</p>
+    <p>These are not polished messages. They are the raw material of a brand that is still finding its most powerful voice. Read slowly — the phrases that stop you are the ones worth keeping.</p>
+  </div>
+
+  <p style="font-size:13px;font-weight:600;color:var(--text-mid);text-transform:uppercase;letter-spacing:.5px;margin-bottom:18px;">What positive change do you see BWL creating?</p>
+  <div class="quotes-grid" style="margin-bottom:36px;">
+    <div class="q-card"><p class="q-text">Weaving together key actors so they feel more supported, safe, resilient, and capable of making systemic change.</p><span class="q-name">Ross</span></div>
+    <div class="q-card"><p class="q-text">As a nurturing network like mycelium, we cultivate unseen connections that help people and communities grow, learn, and thrive whilst staying grounded in authenticity and shared values.</p><span class="q-name">Nim</span></div>
+    <div class="q-card"><p class="q-text">BWL helps communities reclaim their capacity to act together — restoring land, fostering peace, strengthening resilient local economies, and building hopeful futures shaped by the people who live there.</p><span class="q-name">Natasha</span></div>
+    <div class="q-card"><p class="q-text">Make people fall in love with the earth and their places again, so they unite and self-organise to start taking care.</p><span class="q-name">Deborah</span></div>
+    <div class="q-card"><p class="q-text">A refocus on meaningful action in place and relationships — in the age of the meaninglessness and isolation crisis, thereby fueling outer regeneration.</p><span class="q-name">Jonas</span></div>
+    <div class="q-card"><p class="q-text">Connecting people around place to bring about meaningful change that they can see in their own bioregion.</p><span class="q-name">Mari</span></div>
+  </div>
+
+  <!-- T-SHIRT TOP 3 -->
+  <p style="font-size:13px;font-weight:600;color:var(--text-mid);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">If BWL were a T-shirt...</p>
+  <p class="tshirt-intro">We asked respondents to write the message they'd wear with pride. From 32 responses, these three stood out — not just for what they say, but for how they say it. Short, honest, and impossible to walk past without feeling something.</p>
+
+  <div class="tshirt-grid">
+
+    <!-- T-SHIRT 1: We are nature -->
+    <div class="tshirt-card">
+      <div class="pick-label">✦ Pick 01</div>
+      <svg viewBox="0 0 240 260" xmlns="http://www.w3.org/2000/svg">
+        <defs><filter id="ts1"><feDropShadow dx="0" dy="3" stdDeviation="6" flood-opacity=".15"/></filter></defs>
+        <g filter="url(#ts1)">
+          <path d="M85,18 C95,46 145,46 155,18 L200,3 L237,52 L200,70 L200,248 L40,248 L40,70 L3,52 L40,3 Z" fill="#1a3a2a" stroke="none"/>
+        </g>
+        <!-- neckline detail -->
+        <path d="M85,18 C95,46 145,46 155,18" fill="none" stroke="#2d5a3d" stroke-width="2"/>
+        <!-- chest text -->
+        <text x="120" y="138" font-family="Georgia,serif" font-size="14" fill="#a8d5b5" text-anchor="middle" font-weight="bold">We are nature.</text>
+        <text x="120" y="158" font-family="Georgia,serif" font-size="11" fill="rgba(255,255,255,0.65)" text-anchor="middle" font-style="italic">What about you?</text>
+        <!-- small logo mark -->
+        <circle cx="120" cy="105" r="12" fill="none" stroke="#4a7c59" stroke-width="1.5"/>
+        <text x="120" y="110" font-family="Arial,sans-serif" font-size="10" fill="#7daa8a" text-anchor="middle">BWL</text>
+      </svg>
+      <div class="tshirt-submitter">— Karin</div>
+      <div class="tshirt-reason">The boldest claim in the set. It collapses the boundary between us and the natural world — a provocation and an invitation at once.</div>
+    </div>
+
+    <!-- T-SHIRT 2: Creating liveable futures -->
+    <div class="tshirt-card">
+      <div class="pick-label">✦ Pick 02</div>
+      <svg viewBox="0 0 240 260" xmlns="http://www.w3.org/2000/svg">
+        <defs><filter id="ts2"><feDropShadow dx="0" dy="3" stdDeviation="6" flood-opacity=".12"/></filter></defs>
+        <g filter="url(#ts2)">
+          <path d="M85,18 C95,46 145,46 155,18 L200,3 L237,52 L200,70 L200,248 L40,248 L40,70 L3,52 L40,3 Z" fill="#f5f2ec" stroke="#ddd5c8" stroke-width="1"/>
+        </g>
+        <path d="M85,18 C95,46 145,46 155,18" fill="none" stroke="#c9c0b0" stroke-width="1.5"/>
+        <!-- text -->
+        <text x="120" y="120" font-family="Georgia,serif" font-size="12" fill="#1a3a2a" text-anchor="middle" font-weight="bold">Creating</text>
+        <text x="120" y="136" font-family="Georgia,serif" font-size="12" fill="#1a3a2a" text-anchor="middle" font-weight="bold">liveable futures,</text>
+        <text x="120" y="158" font-family="Georgia,serif" font-size="10.5" fill="#4a7c59" text-anchor="middle" font-style="italic">bioregion by bioregion.</text>
+        <!-- small leaf motif -->
+        <ellipse cx="120" cy="96" rx="7" ry="11" fill="none" stroke="#4a7c59" stroke-width="1.5" transform="rotate(-15 120 96)"/>
+        <line x1="120" y1="107" x2="120" y2="99" stroke="#4a7c59" stroke-width="1"/>
+      </svg>
+      <div class="tshirt-submitter">— Jonas</div>
+      <div class="tshirt-reason">Clear, aspirational, and precise. The repetition of "bioregion by bioregion" gives it rhythm — it feels like a commitment, not a slogan.</div>
+    </div>
+
+    <!-- T-SHIRT 3: Make soil not war -->
+    <div class="tshirt-card">
+      <div class="pick-label">✦ Pick 03</div>
+      <svg viewBox="0 0 240 260" xmlns="http://www.w3.org/2000/svg">
+        <defs><filter id="ts3"><feDropShadow dx="0" dy="3" stdDeviation="6" flood-opacity=".15"/></filter></defs>
+        <g filter="url(#ts3)">
+          <path d="M85,18 C95,46 145,46 155,18 L200,3 L237,52 L200,70 L200,248 L40,248 L40,70 L3,52 L40,3 Z" fill="#7a4a28" stroke="none"/>
+        </g>
+        <path d="M85,18 C95,46 145,46 155,18" fill="none" stroke="#9a6a48" stroke-width="2"/>
+        <!-- text -->
+        <text x="120" y="130" font-family="Arial,Helvetica,sans-serif" font-size="16" fill="#fff" text-anchor="middle" font-weight="900" letter-spacing="0.5">MAKE SOIL,</text>
+        <text x="120" y="152" font-family="Arial,Helvetica,sans-serif" font-size="16" fill="#fdecd8" text-anchor="middle" font-weight="900" letter-spacing="0.5">NOT WAR.</text>
+        <!-- soil motif: three small bumps -->
+        <path d="M105,100 Q110,93 115,100 Q120,93 125,100 Q130,93 135,100" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+      </svg>
+      <div class="tshirt-submitter">— Bear</div>
+      <div class="tshirt-reason">A subversion of one of culture's most iconic slogans. Playful, memorable, rooted. Exactly the kind of unexpected wit that earns a second look.</div>
+    </div>
+
+  </div>
+
+  <p style="font-size:13px;font-weight:600;color:var(--text-mid);text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px;">All messages from the collective</p>
+  <div class="other-msgs">
+    <span class="msg-pill">Roots run deeper in bioregions than in the soil of extractive systems</span>
+    <span class="msg-pill">Let's Regenerate Together</span>
+    <span class="msg-pill">Will you weave with me?</span>
+    <span class="msg-pill">I am PART of the BWL Collective</span>
+    <span class="msg-pill">We don't talk about the change — we make the change</span>
+    <span class="msg-pill">Regeneration starts here</span>
+    <span class="msg-pill">The future is now</span>
+    <span class="msg-pill">I left the old economy for soil and community</span>
+    <span class="msg-pill">When many people dream of the same thing, it becomes a reality</span>
+    <span class="msg-pill">Let's design for life!</span>
+    <span class="msg-pill">We'ave it!</span>
+    <span class="msg-pill">Be the change</span>
+    <span class="msg-pill">I am nature. What about you?</span>
+    <span class="msg-pill">Change is hard. But I'm trying.</span>
+    <span class="msg-pill">Welcome life every day</span>
+    <span class="msg-pill">Find your place</span>
+    <span class="msg-pill">The Mycelium</span>
+    <span class="msg-pill">Let's weave together</span>
+    <span class="msg-pill">Let's create together a world that excites us</span>
+    <span class="msg-pill">The Earth = our common home</span>
+    <span class="msg-pill">Connection matters</span>
+    <span class="msg-pill">Summoning the Regeneration</span>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<footer>
+  BWL Collective Survey · December 2025 · 23plusone Drive Research · Analysed by Brandformance · April 2026
+</footer>
+
+</body>
+</html>
